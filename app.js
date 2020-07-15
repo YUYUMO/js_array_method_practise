@@ -3,7 +3,7 @@ const arr = [ 1, 2, 3 ];
 
 const sum = arr.reduce((acc, currentVal) => {
 	return acc + currentVal;
-});
+}, 0);
 
 console.log(sum);
 
@@ -12,7 +12,7 @@ const nums = [ 2, 3, 4 ];
 
 const string = nums.reduce((accumulator, currentVal) => {
 	return accumulator + currentVal.toString();
-});
+}, '');
 
 console.log(string);
 
@@ -81,17 +81,22 @@ let voters = [
 	}
 ];
 
-let count = 0;
-voters.forEach((voter) => {
-	if (voter.voted === true) {
-		count++;
-	} else {
-		count += 0;
-	}
-	return count;
-});
+// let count = 0;
+// voters.forEach((voter) => {
+// 	if (voter.voted === true) {
+// 		count++;
+// 	} else {
+// 		count += 0;
+// 	}
+// 	return count;
+// });
 
-console.log(count);
+const count = voters.reduce((a, voter) => {
+	voter.voted ? a++ : (a += 0);
+	return a;
+}, 0);
+
+console.log('count', count);
 
 // 4) Given an array of all your wishlist items, figure out how much it would cost to just buy everything at once
 
@@ -118,11 +123,16 @@ const wishlist = [
 	}
 ];
 
-let totalCost = 0;
-wishlist.forEach((item) => {
-	totalCost += item.price;
-	return totalCost;
-});
+// let totalCost = 0;
+// wishlist.forEach((item) => {
+// 	totalCost += item.price;
+// 	return totalCost;
+// });
+
+const totalCost = wishlist.reduce((a, item) => {
+	a += item.price;
+	return a;
+}, 0);
 
 console.log(totalCost);
 
@@ -130,7 +140,9 @@ console.log(totalCost);
 
 let arrays = [ [ '1', '2', '3' ], [ true ], [ 4, 5, 6 ] ];
 
-const combinedArray = [].concat.apply([], arrays);
+// const combinedArray = [].concat.apply([], arrays);
+
+const combinedArray = arrays.reduce((a, b) => [ ...a, ...b ], []);
 
 console.log(combinedArray);
 
@@ -189,6 +201,7 @@ const result = voters2.reduce((groupedVoters, voter) => {
 			groupedVoters.oldVotes++;
 		}
 	}
+	return groupedVoters;
 }, startingPoint);
 
 console.log(result);
